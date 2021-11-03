@@ -1,0 +1,496 @@
+/*
+ * Author       : shankarr1002_zohocorp
+ * Generated on : 01-Nov-2021 02:19:01
+ * Version      : 1.0
+ */
+ application "Customer Feedbacks"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+	section Feedbacks
+	{
+		icon = "tech-desktop"
+		form Feedbacks
+		{
+			displayname = "Survey"
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			plain3
+			(
+    			type = plaintext
+				value = "<div style=\"background-color: rgb(208, 224, 242)\">\n <a rel=\"noopener noreferrer\" href=\"https://timesofindia.indiatimes.com/entertainment/english/hollywood/top-20-best-hollywood-movies-of-all-time\" target=\"_blank\"><span class=\"colour\" style=\"color: rgb(102, 0, 255)\">Type any English movie. You can also choose from this list. </span> </a> \n <br>\n</div>"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			MovieName
+			(
+    			type = text
+				displayname = "Movie Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			movieslist
+			(
+    			type = plaintext
+				value = "<div><br /></div>"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			MovieTrailer
+			(
+    			type = text
+				displayname = "Movie Trailer"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			plain
+			(
+    			type = plaintext
+				value = "<div><span class=\"colour\" style=\"color: rgb(0, 0, 204)\">Go ahead and share your feedback now that you have watched the trailer. </span><br /></div><div><span class=\"colour\" style=\"color: rgb(0, 0, 204)\">PS: You need to enable pop-up for watching the trailer. </span> <br /></div>"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Feedback
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sentiment
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			plain1
+			(
+    			type = plaintext
+				value = "<div><br /></div>"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "ui-1-bold-add"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Feedbacks_Report
+		{
+			displayName = "Survey Report"
+			show all rows from Feedbacks    
+			(
+				Email
+				Feedback
+				(
+					width = 499px
+				)
+				Sentiment
+				(
+					width = 92px
+				)
+				Added_Time as "Added Time"
+				(
+					width = 164px
+				)
+				MovieName as "Movie Name"
+				(
+					width = 209px
+				)
+				MovieTrailer as "Movie Trailer"
+				(
+					width = 352px
+				)
+			)
+			sort by
+			(
+				Added_Time descending
+			)
+			options
+			(
+				icon = "business-laptop-71"
+	 		)
+			conditional formatting
+			(
+				"Positive Sentiment"
+				{
+				condition = (Sentiment == "Positive")
+				fields = [Feedback, Sentiment, Added_Time, MovieName, MovieTrailer]
+				format = "background-color:#b6deb5;"
+				}
+				"Neutral Sentiment"
+				{
+				condition = (Sentiment == "Neutral")
+				fields = [Feedback, Sentiment, Added_Time, MovieName, MovieTrailer]
+				format = "background-color:#f9e4cc;"
+				}
+				"Negative Sentiment"
+				{
+				condition = (Sentiment == "Negative")
+				fields = [Feedback, Sentiment, Added_Time, MovieName, MovieTrailer]
+				format = "background-color:#f9cccc;"
+				}
+			)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+		     			title = "Overview"
+						fields
+						(
+							Added_Time as "Added Time"
+							MovieName as "Movie Name"
+							MovieTrailer as "Movie Trailer"
+							Feedback
+							Sentiment
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Email
+							Feedback
+							Sentiment
+							MovieName as "Movie Name"
+							MovieTrailer as "Movie Trailer"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Sentiment_display_page
+	{
+		displayname= "Sentiment display page"
+		icon = "business-laptop-71"
+				 page Sentiment_Dashboard 
+	 	 { 
+ 	 	 displayname = "Sentiment Dashboard" 
+
+ 	 	 icon = "ui-1-dashboard-half" 
+	 	 Content="<zml    \n\t\t\tisPdfEnabled='false'\n\t\t\n\t\t\tisPrintEnabled='false'\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width=\"100%\"\n   \t>\n\t<dsp id='html_snippet' bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\t%&gt;\n&lt;style&gt;\n.frame{\n\tdisplay:block;\n}\n#leftbox {\n                float:left; \n                width:24%;\n                height:400px;\n            }\n            #middlebox{\n                float:left; \n                width:50%;\n                height:400px;\n            }\n            #rightbox{\n                float:right;\n                width:24%;\n                height:400px;\n            }\n&lt;\/style&gt;\n&lt;div id = &quot;boxes&quot;&gt;\n &lt;div id = &quot;leftbox&quot;&gt;&lt;\/div&gt;\n  &lt;div id = &quot;middlebox&quot;&gt;\n  &lt;iframe class=&quot;frame&quot; height=&apos;400px&apos; width=&apos;100%&apos; frameborder=&apos;0&apos; allowTransparency=&apos;true&apos; scrolling=&apos;auto&apos; src=&apos;https:\/\/creatorapp.zohopublic.com\/shankarr1002_zohocorp\/customer-feedbacks\/form-embed\/Feedbacks\/CW29PwH28ezVx5hJuU8FmkCfOm4gGAYS2eFp7hbr9rKtvT4F0fWedVT2wCXChxfBwT0jZPxSdspAZxxehu3zk0eDQKu7DXz6QQdt&apos; align=&quot;left&quot;&gt;&lt;\/iframe&gt;\n&lt;\/div&gt;\n&lt;div id = &quot;rightbox&quot;&gt;\n&lt;\/div&gt;\n&lt;\/div&gt;\n  &lt;iframe name=&apos;frame2&apos; height=&apos;800px&apos; width=&apos;100%&apos; frameborder=&apos;0&apos; allowTransparency=&apos;true&apos; scrolling=&apos;auto&apos; src=&apos;https:\/\/creatorapp.zohopublic.com\/shankarr1002_zohocorp\/customer-feedbacks\/report-embed\/Feedbacks_Report\/3MO9JWN0EwNQ4Qj6hnETNsEmzJ0fbHHSC3rjJ1QgjD0nwQOGqKy35HfbHeb16BS2PJMYTrMTXkhQ92eg6TnKswxxrrSgQptvaP1A&apos; align=&quot;right&quot;&gt;&lt;\/iframe&gt;\n&lt;%\n\n}%&gt;]]>\n<\/dsp>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>" 
+ 	 	}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			CallCatalyst as "CallCatalyst"
+			{
+				type =  form
+				form = Feedbacks
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Feedback.contains("\""))
+										{
+											input.Feedback = input.Feedback.remove("\"");
+										}
+										if(input.MovieTrailer.isEmpty())
+										{
+											resp1 = invokeurl
+											[
+												url :"https://creatorcatalystconnection-698653107.development.catalystserverless.com/server/get_Movie_Trailer/execute?movie_name=" + input.MovieName
+												type :GET
+											];
+											trailer = resp1.get("output");
+											input.MovieTrailer = trailer;
+										}
+										resp = invokeurl
+										[
+											url :"https://creatorcatalystconnection-698653107.development.catalystserverless.com/server/get_feedback_sentiment/execute?feedback=" + input.Feedback + "&id=" + input.ID + "&email=" + input.Email + "&moviename=" + input.MovieName
+											type :GET
+										];
+										openUrl("https://creatorapp.zohopublic.com/shankarr1002_zohocorp/customer-feedbacks/report-embed/Feedbacks_Report/3MO9JWN0EwNQ4Qj6hnETNsEmzJ0fbHHSC3rjJ1QgjD0nwQOGqKy35HfbHeb16BS2PJMYTrMTXkhQ92eg6TnKswxxrrSgQptvaP1A","iframe","frame2");
+						)
+					}
+				}
+
+			}
+			hideSentimentField as "hideSentimentField"
+			{
+				type =  form
+				form = Feedbacks
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											hide Sentiment;
+										disable MovieTrailer;
+										//hide Email;
+										hide movieslist;
+										hide Feedback;
+										hide plain;
+										hide MovieTrailer;
+						)
+					}
+				}
+
+			}
+			Update_sentiment as "Update sentiment"
+			{
+				type =  form
+				form = Feedbacks
+				record event = on add or edit
+
+				on user input of Feedback
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Feedback.contains("\""))
+										{
+											input.Feedback = input.Feedback.remove("\"");
+										}
+										resp = invokeurl
+										[
+											url :"https://creatorcatalystconnection-698653107.development.catalystserverless.com/server/get_feedback_sentiment/execute?feedback=" + input.Feedback + "&email=" + input.Email + "&moviename=" + input.MovieName
+											type :GET
+										];
+										sent = resp.get("output").toMap().get("Sentiment");
+										input.Sentiment = sent;
+										if(sent == "Positive")
+										{
+											input.plain1 = "<p style=\"font-size:50px\">&#128512;</p>";
+										}
+										else if(sent == "Negative")
+										{
+											input.plain1 = "<p style=\"font-size:50px\">&#128542;</p>";
+										}
+										else
+										{
+											input.plain1 = "<p style=\"font-size:50px\">&#128528;</p>";
+										}
+						)
+					}
+				}
+
+			}
+			update_Trailer_URL as "update Trailer URL"
+			{
+				type =  form
+				form = Feedbacks
+				record event = on add or edit
+
+				on user input of MovieName
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											resp = invokeurl
+										[
+											url :"https://creatorcatalystconnection-698653107.development.catalystserverless.com/server/get_Movie_Trailer/execute?movie_name=" + input.MovieName
+											type :GET
+										];
+										trailer = resp.get("output");
+										if(trailer == "null")
+										{
+											show movieslist;
+											input.movieslist = "<div style=\"background-color:rgb(239, 229, 192)\"><span class=\"colour\" style=\"color:rgb(0, 0, 0)\"> We are unable to find the movie you have asked for. Pls try giving some movie from <a href=\"https://timesofindia.indiatimes.com/entertainment/english/hollywood/top-20-best-hollywood-movies-of-all-time\" target=\"_blank\"><span class=\"colour\" style=\"color:rgb(102, 0, 255)\">this list.</span></a> </span></div>";
+										}
+										else
+										{
+											hide movieslist;
+											show MovieTrailer;
+											show Feedback;
+											show plain;
+											input.MovieTrailer = trailer;
+											openUrl(trailer,"new window");
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+			role Hierarchy = {Feedbacks}
+	}
+
+	customize
+	{
+		
+		layout = "tab"
+		color = "black"
+		base theme = "professional"
+		new theme = 1
+		
+		icons = true
+		icons style = outline
+	}
+
+
+	
+}

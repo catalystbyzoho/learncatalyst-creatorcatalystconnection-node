@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "targets": [
+      "get_feedback_sentiment",
+      "get_Movie_Trailer",
+      "creator_catalyst_connection_function"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}
